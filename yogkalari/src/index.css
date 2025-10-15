@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(2.3);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 1;
+  }
+}
+
+.animate-scale-up {
+  animation: scaleUp 2s ease-in-out forwards;
+}
+@font-face {
+  font-family: "Clash Display";
+  src: url("/fonts/ClashDisplay-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/IBMPlexSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-primary {
+  font-family: "Clash Display", sans-serif;
+}
+
+.font-secondary {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+body {
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #1c1c1b;
+}
+
