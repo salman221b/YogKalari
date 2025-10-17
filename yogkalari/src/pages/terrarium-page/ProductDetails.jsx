@@ -93,9 +93,14 @@ const ProductDetails = () => {
           <div className="mt-6">
             <img src="/AED.png" alt="AED" className="inline w-6 h-6 mb-2" />
             <p className="inline text-2xl font-semibold">{product.price}</p>
-            {product.stock && (
+            {product.stock ? (
               <p className="text-red-600 text-sm mt-1">
                 Hurry Up! Only {product.stock} left
+              </p>
+            ) : (
+              <p className="text-red-600 text-sm mt-1">
+                {" "}
+                Hurry Up! Only 3 Pieces left
               </p>
             )}
           </div>
