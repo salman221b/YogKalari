@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Product from "./Product";
+import Products from "./Products";
 
 const AdminLogin = () => {
   const [username, setUsername] = useState("");
@@ -30,6 +31,7 @@ const AdminLogin = () => {
           Welcome, Admin!
         </h2>
         <Product />
+        <Products/>
       </div>
     );
   }

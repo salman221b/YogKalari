@@ -1,27 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { products } from "../../data/products";
+import axios from "axios";
 import Marquee from "./Marquee2";
 import ScrollToTop from "../../components/ScrollToTop";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const product = products.find((p) => p.id === parseInt(id));
-
-  const [selectedImage, setSelectedImage] = useState(product?.image);
+  const [product, setProduct] = useState(null);
+  const [selectedImage, setSelectedImage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  if (!product) {
+  // Fetch product from backend
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`
+        );
+        if (res.data.success) {
+          setProduct(res.data.product);
+          setSelectedImage(res.data.product.images[0] || ""); // default first image
+        }
+      } catch (err) {
+        console.error("Failed to fetch product:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProduct();
+  }, [id]);
+
+  if (loading) return <div className="p-10 text-center">Loading...</div>;
+  if (!product)
     return <div className="p-10 text-center">Product not found.</div>;
-  }
 
   return (
     <section className="py-10 pt-30">
-      <div className="text-sm text-gray-500 mb-6 px-26 pl-5 md:px-20 lg:pl-20 2xl:pl-40">
+      <div className="text-sm text-gray-500 mb-6 px-5 md:px-20 lg:pl-20 2xl:pl-40">
         <Link to="/">Home </Link> &gt;
-        <Link to="/terrariums">Terrariums </Link> &gt;{" "}
-        <span className="text-gray-800">Product</span>
+        <Link to="/terrariums"> Terrariums </Link> &gt;{" "}
+        <span className="text-gray-800">{product.name}</span>
       </div>
+
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 px-6">
         {/* Left: Product Images */}
         <div>
@@ -32,8 +53,8 @@ const ProductDetails = () => {
           />
 
           {/* Thumbnails */}
-          <div className="flex gap-3 mt-4">
-            {[product.image, product.image, product.image].map((img, i) => (
+          <div className="flex gap-3 mt-4 flex-wrap">
+            {product.images.map((img, i) => (
               <img
                 key={i}
                 src={img}
@@ -44,39 +65,18 @@ const ProductDetails = () => {
                 }`}
               />
             ))}
-            <button className="w-20 h-20 border border-gray-300 rounded-lg text-sm text-gray-600">
-              View More
-            </button>
           </div>
         </div>
 
         {/* Right: Product Info */}
         <div>
-          {/* Title */}
           <h1 className="text-2xl font-bold text-green-800">{product.name}</h1>
 
-          {/* Short Description */}
-          <p className="mt-2 text-gray-700">
-            Anchored by a traditional multicolour brass Ganesha, this terrarium
-            is both devotional and timeless. Brass is long revered for stability
-            and abundance.
+          {/* Description */}
+          <p className="mt-2 text-gray-700">{product.description}</p>
+          <p className="mt-1 text-gray-700 font-medium">
+            Category: {product.category}
           </p>
-
-          {/* Placement, Gifting, Uniqueness */}
-          <div className="mt-4 space-y-2 text-gray-700">
-            <p>
-              <span className="font-semibold">Placement:</span> Desks, bedside,
-              or children’s rooms.
-            </p>
-            <p>
-              <span className="font-semibold">Gifting:</span> Ideal for
-              graduations or new jobs.
-            </p>
-            <p>
-              <span className="font-semibold">Uniqueness:</span> 3 pieces
-              currently in stock.
-            </p>
-          </div>
 
           {/* Care Guide Link */}
           <p className="italic text-gray-500 text-sm mt-3">
@@ -89,19 +89,21 @@ const ProductDetails = () => {
             </span>
           </p>
 
-          {/* Price & Stock */}
+          {/* Price */}
           <div className="mt-6">
             <img src="/AED.png" alt="AED" className="inline w-6 h-6 mb-2" />
-            <p className=" inline text-2xl font-semibold"> {product.price}</p>
-            <p className="text-red-600 text-sm mt-1">
-              Hurry Up! Only 3 Pieces left
-            </p>
+            <p className="inline text-2xl font-semibold">{product.price}</p>
+            {product.stock && (
+              <p className="text-red-600 text-sm mt-1">
+                Hurry Up! Only {product.stock} left
+              </p>
+            )}
           </div>
 
           {/* Buy Button */}
           <div className="mt-4">
             <a
-              href={`https://wa.me/971563440979?text=Hello, I am enquiring about the product *${product.name}* priced at *${product.price}*. Can you share more details?`}
+              href={`https://wa.me/971563440979?text=Hello, I am enquiring about the product *${product.name}* priced at *${product.price}*.`}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#084C2E] text-white px-8 py-3 rounded-full shadow hover:bg-[#0A7646] inline-block text-center"
@@ -113,13 +115,19 @@ const ProductDetails = () => {
           {/* Why Sections */}
           <div className="mt-8 space-y-6 text-gray-700">
             <div>
+              <h3 className="font-bold">Special Offer</h3>
+              <p>
+                WhatsApp us with the code BREATHE10 to get 10% off your first
+                wellness session or terrarium experience.
+              </p>
+            </div>
+            <div>
               <h3 className="font-bold">Why Brass Ganesha?</h3>
               <p>
                 Heritage material with auspicious energy. Carries durability and
                 sacred longevity.
               </p>
             </div>
-
             <div>
               <h3 className="font-bold">Why Ārāma?</h3>
               <p>
@@ -127,7 +135,6 @@ const ProductDetails = () => {
                 terrarium into a devotional centerpiece.
               </p>
             </div>
-
             <div>
               <h3 className="font-bold">
                 If you have any questions please get in touch with us!
@@ -136,6 +143,7 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -184,7 +192,6 @@ const ProductDetails = () => {
               Terrarium begin to show signs of deterioration within 7 days from
               the date of purchase, please contact us immediately.
             </p>
-
             <p className="text-gray-700 mb-2">
               <span className="font-semibold">Exemptions:</span> The guarantee
               does not apply if the terrarium has been:
@@ -219,6 +226,7 @@ const ProductDetails = () => {
           </div>
         </div>
       )}
+
       <div className="mt-10">
         <Marquee />
       </div>

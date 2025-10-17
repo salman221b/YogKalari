@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { products } from "../../data/products";
+import axios from "axios";
 import Marquee from "./Marquee";
 import RecommendationSlider from "./RecommendationSlider";
 
@@ -9,23 +9,35 @@ const ProductCard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [products, setProducts] = useState([]); // ✅ Fetch from backend
   const itemsPerPage = 16;
 
-  const handleSearch = () => {
-    // Reset any existing filtered data (optional visual clear)
-    setSearchQuery(""); // clear first
-    setCurrentPage(1);
+  // ✅ Fetch products from backend
+  const fetchProducts = async () => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/products`
+      );
+      if (res.data.success) {
+        setProducts(res.data.products);
+      }
+    } catch (err) {
+      console.error("Failed to fetch products:", err);
+    }
+  };
 
-    // Wait a tick to ensure reset, then set new query
-    setTimeout(() => {
-      setSearchQuery(searchInput);
-    }, 0);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const handleSearch = () => {
+    setSearchQuery("");
+    setCurrentPage(1);
+    setTimeout(() => setSearchQuery(searchInput), 0);
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
+    if (e.key === "Enter") handleSearch();
   };
 
   const filteredProducts = searchQuery
@@ -36,7 +48,7 @@ const ProductCard = () => {
       )
     : products;
 
-  // Pagination logic
+  // Pagination
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentProducts = filteredProducts.slice(
@@ -46,20 +58,19 @@ const ProductCard = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" }); // scroll to top on page change
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <section className="bg-[#F6F3EB] py-10">
       <div className="max-w-full mx-auto px-10">
-        {/* Header Section */}
+        {/* Header & Search */}
         <div className="mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
             <h1 className="text-3xl md:text-4xl font-bold text-[#084C2E]">
               Terrariums
             </h1>
 
-            {/* Search Bar */}
             <div className="flex items-center space-x-2">
               <div className="relative w-full md:w-96">
                 <input
@@ -91,22 +102,29 @@ const ProductCard = () => {
         <div className="grid gap-8 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
           {currentProducts.map((product) => (
             <div
-              key={product.id}
+              key={product._id} // ✅ Use backend _id
               className="rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden cursor-pointer bg-white"
-              onClick={() => navigate(`/products/${product.id}`)}
+              onClick={() => navigate(`/products/${product._id}`)}
             >
               <div className="relative w-full h-40 md:h-60 lg:h-80 overflow-hidden">
                 <img
-                  src={product.image}
+                  src={product.images[0]} // ✅ Use backend image
                   alt={product.name}
                   className="w-full h-full object-cover rounded-2xl px-2 py-2"
                 />
+                {product.isLimited && (
+                  <span className="absolute top-3 right-3 bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full shadow">
+                    Limited Edition
+                  </span>
+                )}
               </div>
+
               <div className="p-4">
-                <h3 className="text-md md:text-lg text-gray-900 leading-tight">
+                <h3 className="text-md md:text-lg text-gray-900 leading-tight font-semibold">
                   {product.name}
                 </h3>
-                <p className="text-sm md:text-md mt-1">{product.description}</p>
+                {/* <p className="text-sm md:text-md mt-1">{product.description}</p> */}
+                <p className="text-sm md:text-md mt-1">({product.category})</p>
                 <p className="font-semibold mt-2 text-md md:text-lg">
                   <img
                     src="/AED.png"
@@ -120,7 +138,7 @@ const ProductCard = () => {
           ))}
         </div>
 
-        {/* No Results Message */}
+        {/* No Results */}
         {filteredProducts.length === 0 && searchQuery && (
           <div className="text-center py-12">
             <p className="text-gray-600 text-lg">
@@ -129,7 +147,7 @@ const ProductCard = () => {
           </div>
         )}
 
-        {/* Pagination Controls */}
+        {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex justify-end text-right mt-10 space-x-2">
             <button
@@ -164,8 +182,10 @@ const ProductCard = () => {
           </div>
         )}
       </div>
-      <RecommendationSlider products={products.slice(0, 6)} />
 
+      <RecommendationSlider
+        products={products.filter((p) => p.isRecommended)}
+      />
       <div className="mt-10">
         <Marquee />
       </div>
