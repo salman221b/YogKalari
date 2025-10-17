@@ -61,7 +61,9 @@ const AdminShowProducts = () => {
   return (
     <div className="mt-30">
       <div className="flex justify-between items-center mx-10 mb-4">
-        <h2 className="text-xl text-[#084C2E] font-bold">All Products</h2>
+        <h2 className="text-xl text-[#084C2E] font-bold text-center">
+          All Products
+        </h2>
         <button
           onClick={fetchProducts}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
