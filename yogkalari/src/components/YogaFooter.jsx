@@ -174,7 +174,7 @@ const YogaFooter = () => {
         {/* Footer Bottom */}
         <div className="border-t border-gray-300 mt-8 sm:mt-12 pt-4 sm:pt-6 text-center">
           <p className="text-xs sm:text-sm text-gray-500 px-2">
-            © All Rights Reserved by Yogkalarisamriddhi FCCZC LLC
+            © All Rights Reserved by Yogkalarisamriddhi FZC LLC
           </p>
         </div>
       </div>
