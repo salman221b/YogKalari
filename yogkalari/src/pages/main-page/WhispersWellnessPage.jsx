@@ -61,7 +61,7 @@ const WhispersWellnessPage = () => {
       <div className="py-10 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Title */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-[#084C2E] text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 md:mb-12 xl:mb-16 mt-10 xl:mt-20  text-[#084C2E] text-center">
             Whispers of Wellness
           </h1>
 
@@ -81,9 +81,9 @@ const WhispersWellnessPage = () => {
                 <Slider {...settings}>
                   {testimonials.map((t, i) => (
                     <div key={i}>
-                      <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 w-full h-[380px] md:h-[300px] flex flex-col justify-between">
+                      <div className="bg-white rounded-2xl  p-8 duration-300 w-full h-[380px] md:h-[300px] flex flex-col">
                         {/* Quotation mark */}
-                        <div className=" text-[#2F5C4E] mb-3">
+                        <div className=" text-[#2F5C4E]">
                           <img
                             src="/quotes.png"
                             alt="Quotation Mark"
@@ -92,17 +92,13 @@ const WhispersWellnessPage = () => {
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-lg font-semibold mb-2">
-                          {t.title}
-                        </h3>
+                        <h3 className="text-lg font-semibold ">{t.title}</h3>
 
                         {/* Content */}
-                        <p className=" text-sm leading-relaxed mb-6">
-                          {t.content}
-                        </p>
+                        <p className=" text-sm leading-relaxed">{t.content}</p>
 
                         {/* Footer */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 mt-auto">
                           {/* Avatar */}
                           <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-semibold ">
                             {t.initials}
@@ -134,10 +130,10 @@ const WhispersWellnessPage = () => {
       {/* Bottom CTA Section */}
       <div className="bg-[#084C2E] py-13 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-6">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-6">
             Ready to Begin Your Wellness Journey?
           </h2>
-          <p className="text-lg md:text-xl text-green-100 mb-10 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto">
             Let's help you find balance through body, breath, and earth
           </p>
 

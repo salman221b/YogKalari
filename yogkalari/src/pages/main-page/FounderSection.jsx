@@ -23,7 +23,7 @@ const founders = [
 
 const FounderCards = () => {
   return (
-    <div className="bg-[#f8f5eb] min-h-screen flex flex-col items-center mb-20 md:mb-0 px-6">
+    <div className="bg-[#EDEAE0] min-h-screen flex flex-col items-center mb-20 md:mb-0 px-6 pt-10 ">
       <h2 className="text-3xl md:text-4xl  font-semibold text-[#084C2E] mb-10 text-center">
         Meet the Founders
       </h2>

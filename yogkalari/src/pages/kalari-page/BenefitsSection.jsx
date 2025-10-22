@@ -123,7 +123,7 @@ const BenefitsSection = () => {
               <Slider {...settings}>
                 {testimonials.map((t, i) => (
                   <div key={i}>
-                    <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 w-full h-[380px] md:h-[300px] flex flex-col justify-between">
+                    <div className="bg-white rounded-2xl p-8 duration-300 w-full h-[380px] md:h-[300px] flex flex-col justify-between">
                       {/* Quotation mark */}
                       <div className=" text-[#2F5C4E] mb-3">
                         <img

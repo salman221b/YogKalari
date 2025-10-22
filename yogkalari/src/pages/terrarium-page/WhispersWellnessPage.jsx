@@ -81,7 +81,7 @@ const WhispersWellnessPage = () => {
                 <Slider {...settings}>
                   {testimonials.map((t, i) => (
                     <div key={i}>
-                      <div className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 w-full h-[380px] md:h-[300px] flex flex-col justify-between">
+                      <div className="bg-white rounded-2xl p-8  duration-300 w-full h-[380px] md:h-[300px] flex flex-col justify-between">
                         {/* Quotation mark */}
                         <div className=" text-[#2F5C4E] mb-3">
                           <img
@@ -110,9 +110,7 @@ const WhispersWellnessPage = () => {
 
                           {/* Name + Stars */}
                           <div>
-                            <p className="font-medium">
-                              {t.name}
-                            </p>
+                            <p className="font-medium">{t.name}</p>
                             <div className="flex text-yellow-500">
                               {[...Array(5)].map((_, idx) => (
                                 <Star
@@ -136,10 +134,10 @@ const WhispersWellnessPage = () => {
       {/* Bottom CTA Section */}
       <div className="bg-[#084C2E] py-10 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-6">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-6">
             Ready to Begin Your Wellness Journey?
           </h2>
-          <p className="text-lg md:text-xl text-green-100 mb-10 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto">
             Let's help you find balance through body, breath, and earth
           </p>
 

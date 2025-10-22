@@ -20,7 +20,7 @@ const Navbar = () => {
 
   return (
     <nav className="text-white fixed w-full z-30 bg-[rgba(246,243,235)] backdrop-blur-md py-1">
-      <div className="max-w-7xl mx-auto px-5 sm:px-5 xl:px-0 2xl:px-0 ">
+      <div className="w-full mx-auto px-5 sm:px-12 md:px-15 lg:px-18">
         <div className="flex justify-between items-center h-16">
           {/* Left - Logo */}
           <Link to="/" className="cursor-pointer">
@@ -39,8 +39,8 @@ const Navbar = () => {
                   onClick={() => setIsOpen(false)}
                   className={`transition ${
                     location.pathname === link.path
-                      ? "text-[#084C2E] underline underline-offset-5"
-                      : "text-[#1C1C1B] hover:text-[#084C2E] hover:bg-[#EDEAE0] "
+                      ? "text-[#084C2E] underline underline-offset-7 font-medium"
+                      : "text-[#1C1C1B] hover:text-[#084C2E] hover:bg-[#EDEAE0] font-medium"
                   }`}
                 >
                   <span>{link.label}</span>
