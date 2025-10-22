@@ -62,7 +62,7 @@ const WhispersWellnessPage = () => {
       <div className="py-10 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Title */}
-          <h1 className="text-2xl 2xs:text-xl sm:text-2xl md:text-3xl lg:text-3xl font-semibold mb-5 text-[#B15D6E] text-center">
+          <h1 className="text-2xl 2xs:text-xl sm:text-2xl md:text-3xl lg:text-3xl font-semibold mb-5 text-[#B15D6E] text-center pb-10">
             Whispers of Wellness
           </h1>
 

@@ -7,11 +7,11 @@ const KalaripayattuDetails = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
         {/* Left Column */}
         <div>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl text-[#B15D6E] font-semibold">
+          <h2 className="text-xl md:text-2xl lg:text-3xl text-[#B15D6E] font-semibold">
             “शरीरम् आद्यं खलु धर्मसाधनम्”
           </h2>
 
-          <p className="text-[#B15D6E] mb-6">
+          <p className="text-[#B15D6E] mb-6 mt-4 text-md md:text-lg ">
             The body is the foremost instrument for dharma.— Kālidāsa
           </p>
 
@@ -24,10 +24,10 @@ const KalaripayattuDetails = () => {
           </p>
           <p className="mb-4">
             Led by Sucheta Chadha, an{" "}
-            <strong>
+            <span className="font-semibold">
               experienced yoga therapist with over 13 years of one-on-one
               practice
-            </strong>
+            </span>
             , this offering is grounded in the yoga śāstras, designed to support
             both physical recovery and energetic realignment.
           </p>
@@ -35,7 +35,7 @@ const KalaripayattuDetails = () => {
             Whether you’re navigating a health condition or seeking deeper
             connection with your body, our therapeutic programs integrate:
           </p>
-          <ul className="space-y-2">
+          <ul className="space-y-5">
             <li>
               <strong>
                 <span className="text-[#B15D6E]">Āsana:</span>
@@ -76,22 +76,22 @@ const KalaripayattuDetails = () => {
       </div>
 
       {/* Section 2 - Support Clients */}
-      <div className="mt-20 lg:grid lg:grid-cols-2 lg:gap-10 lg:items-center md:flex md:flex-col-reverse">
+      <div className="mt-20 lg:grid lg:grid-cols-2 lg:gap-10 md:flex md:flex-col-reverse">
         {/* Left Image */}
         <div className="sm:order-1">
           <img
             src="https://res.cloudinary.com/dpjfm1pha/image/upload/v1756704038/795e8cc62a0e7256200c0ee507bfbd8d6c4a91a7_bzoniw.jpg"
             alt="Yoga Therapy Clients"
-            className="rounded-lg shadow-lg w-full object-cover"
+            className="rounded-lg shadow-lg w-full  object-cover"
           />
         </div>
 
         {/* Right Content */}
         <div className="sm:order-2">
-          <h2 className="text-3xl md:text-4xl lg:text-[32px] text-[#B15D6E] font-semibold pt-10 md:pt-0">
+          <h2 className="text-3xl md:text-4xl lg:text-[32px] text-[#B15D6E] font-semibold pt-10 md:pt-5">
             We support clients with
           </h2>
-          <ul className="mt-3 space-y-3 text-gray-700 list-disc list-inside pb-10">
+          <ul className="mt-3 space-y-5 md:space-y-7 text-gray-700 list-disc list-inside pb-10">
             <li>
               Hormonal health (PCOS, perimenopause, thyroid, menstrual
               irregularities)

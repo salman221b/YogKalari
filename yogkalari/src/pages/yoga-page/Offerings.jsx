@@ -32,8 +32,10 @@ const Offerings = () => {
   return (
     <section className="bg-[#EDEAE0] py-16 px-6 sm:px-10 md:px-16 lg:px-24">
       {/* Title */}
-      <h2 className="text-2xl md:text-3xl text-[#A97375]">Offerings</h2>
-      <p className="text-gray-600 mt-2 mx-auto text-sm sm:text-base mb-7">
+      <h2 className="text-2xl md:text-3xl text-[#B15D6E] text-center ">
+        Offerings
+      </h2>
+      <p className="text-[#1C1C1B] mt-2 mx-auto text-sm sm:text-base mb-7 text-center">
         Based in Dubai. (Classes offered in select locations. Contact us to
         explore starting a group near you.)
       </p>
@@ -42,23 +44,23 @@ const Offerings = () => {
         {cards.map((card, index) => (
           <div
             key={index}
-            className="group relative bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500 hover:shadow-2xl"
+            className="group relative bg-[#F4F2ED] rounded-2xl shadow-md overflow-hidden transition-all duration-500 hover:shadow-2xl"
           >
             {/* Image */}
             <div className="relative overflow-hidden group-hover:h-full">
               <img
                 src={card.image}
                 alt={card.title}
-                className="w-full h-full object-cover rounded-t-2xl transition-all duration-700 ease-in-out md:grayscale group-hover:grayscale-0 group-hover:h-full"
+                className="w-full h-full object-cover p-3 hover:p-0 rounded-2xl transition-all duration-700 ease-in-out md:grayscale group-hover:grayscale-0 group-hover:h-full"
               />
             </div>
 
             {/* Normal Content */}
             <div className="p-5 transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-6">
-              <h3 className="text-xl font-semibold text-gray-900">
+              <h3 className="text-xl font-semibold text-[#1C1C1B]">
                 {card.title}
               </h3>
-              <p className="text-gray-600 text-sm mt-3 leading-relaxed">
+              <p className="text-[#555555] text-sm mt-3 leading-relaxed">
                 {card.description}
               </p>
               <div className="sm:hidden mt-4 text-center">

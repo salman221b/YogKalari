@@ -3,26 +3,31 @@ import "./MarqueeBanner.css"; // Import custom CSS
 
 const MarqueeBanner = () => {
   return (
-    <div className="w-full bg-[#A97375] overflow-hidden">
+    <div className="w-full bg-[#B15D6E] overflow-hidden">
       <div className="marquee py-2">
-        <span className="text-white text-sm md:text-base">
-          - Use code <b>BREATHE10</b> for 10% off your first session or
-          terrarium
-        </span>
-        <span className="text-white text-sm md:text-base">
-          - Use code <b>BREATHE10</b> for 10% off your first session or
-          terrarium
-        </span>
-        <span className="text-white text-sm md:text-base">
-          - Use code <b>BREATHE10</b> for 10% off your first session or
-          terrarium
-        </span>
-        <span className="text-white text-sm md:text-base">
-          - Use code <b>BREATHE10</b> for 10% off your first session or
-          terrarium
-        </span>
+        {[...Array(2)].map((_, i) => (
+          <React.Fragment key={i}>
+            <span className="text-white text-sm md:text-base">
+              - Use code <b>BREATHE10</b> for 10% off your first session or
+              terrarium
+            </span>
+            <span className="text-white text-sm md:text-base">
+              - Use code <b>BREATHE10</b> for 10% off your first session or
+              terrarium
+            </span>
+            <span className="text-white text-sm md:text-base">
+              - Use code <b>BREATHE10</b> for 10% off your first session or
+              terrarium
+            </span>
+            <span className="text-white text-sm md:text-base">
+              - Use code <b>BREATHE10</b> for 10% off your first session or
+              terrarium
+            </span>
+          </React.Fragment>
+        ))}
       </div>
-      <div className="bg-[#084C2E] py-10 px-6 ">
+
+      <div className="bg-[#084C2E] py-10 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-6">
             Ready to Begin Your Wellness Journey?
