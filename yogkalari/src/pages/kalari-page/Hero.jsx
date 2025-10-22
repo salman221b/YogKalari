@@ -9,12 +9,12 @@ const Hero = () => {
                  md:bg-[url('https://res.cloudinary.com/dpjfm1pha/image/upload/v1760938139/4992428f24a3bd1514d158082f86a57ca56ea631_obgalc.jpg')]"
     >
       {/* Title */}
-      <h1 className="font-primary px-10 relative text-2xl 2xs:text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 3xl:text-8xl 5xl:text-9xl pt-25 md:pt-15 font-semibold text-[#AA6246] z-10">
+      <h1 className="font-primary px-5 sm:px-10 md:px-25 relative text-2xl 2xs:text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl  pt-25 md:pt-15 font-semibold text-[#AA6246] z-10">
         KALARIPAYATTU
       </h1>
 
       {/* Subtitle */}
-      <p className="relative text-sm sm:text-base md:text-lg text-[#F6F3EB] z-10 mt-3 px-10">
+      <p className="relative text-sm sm:text-base md:text-lg text-[#F6F3EB] z-10 mt-3 px-5 sm:px-10 md:px-25">
         Traditional Techniques for Modern Warriors
       </p>
 
