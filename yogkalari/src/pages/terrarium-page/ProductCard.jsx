@@ -63,7 +63,7 @@ const ProductCard = () => {
 
   return (
     <section className="bg-[#F6F3EB] py-10">
-      <div className="max-w-full mx-auto px-10">
+      <div className="max-w-full mx-auto px-5 sm:px-7 lg:px-14">
         {/* Header & Search */}
         <div className="mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
@@ -106,11 +106,11 @@ const ProductCard = () => {
               className="rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden cursor-pointer bg-white"
               onClick={() => navigate(`/products/${product._id}`)}
             >
-              <div className="relative w-full h-40 md:h-60 lg:h-80 overflow-hidden">
+              <div className="relative w-full h-50 md:h-80 lg:h-110 overflow-hidden">
                 <img
                   src={product.images[0]} // ✅ Use backend image
                   alt={product.name}
-                  className="w-full h-full object-cover rounded-2xl px-2 py-2"
+                  className="w-[100%] h-[100%] object-cover rounded-3xl px-3 py-3 mx-auto my-auto"
                 />
                 {product.isLimited && (
                   <span className="absolute top-3 right-3 bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full shadow">

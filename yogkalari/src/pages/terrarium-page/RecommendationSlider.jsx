@@ -34,7 +34,7 @@ const RecommendationSlider = ({ products }) => {
   return (
     <section className="bg-[#F6F3EB] pt-25 py-10">
       <div className="max-w-9xl mx-auto px-6">
-        <h2 className="text-2xl md:text-3xl font-semibold text-[#084C2E] mb-6">
+        <h2 className="text-2xl md:text-3xl font-semibold text-[#084C2E] mb-6 px-5 sm:px-7 lg:px-10">
           Our Recommendation
         </h2>
 
@@ -46,7 +46,7 @@ const RecommendationSlider = ({ products }) => {
               onClick={() => navigate(`/products/${product._id}`)}
             >
               <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all overflow-hidden">
-                <div className="relative w-full h-56 overflow-hidden">
+                <div className="relative w-full h-50 md:h-80 lg:h-110 overflow-hidden">
                   <img
                     src={product.images[0]}
                     alt={product.name}

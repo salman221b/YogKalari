@@ -83,9 +83,9 @@ const BenefitsSection = () => {
   ];
 
   return (
-    <div className="bg-[#f8f5f1] px-6 md:px-16 py-12">
+    <div className="px-6 md:px-16 py-12">
       {/* Benefits Heading */}
-      <h2 className="text-center text-2xl md:text-3xl  text-[#AA6246] mb-8">
+      <h2 className="text-center text-2xl md:text-3xl  text-[#AA6246] mb-10 font-semibold">
         Benefits of Kalaripayattu
       </h2>
 
@@ -94,7 +94,7 @@ const BenefitsSection = () => {
         {benefits.map((benefit, idx) => (
           <div
             key={idx}
-            className="bg-[#f2eee9] p-5 rounded-xl shadow-sm hover:shadow-md transition duration-300"
+            className="bg-[#EDEAE0] p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300"
           >
             <h3 className="font-semibold text-lg mb-2">{benefit.title}</h3>
             <p className="text-sm text-gray-700">{benefit.desc}</p>
@@ -103,8 +103,9 @@ const BenefitsSection = () => {
       </div>
 
       {/* Whispers of Wellness */}
-      <div className="mt-10">
-        <h3 className="text-center text-2xl md:text-3xl  text-[#AA6246] mb-6">
+      <div className="py-10 px-6">
+         <div className="max-w-7xl mx-auto">
+        <h3 className="text-2xl 2xs:text-xl sm:text-2xl md:text-3xl lg:text-3xl font-semibold mb-5 text-[#AA6246] text-center pb-10">
           Whispers of Wellness
         </h3>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -134,15 +135,15 @@ const BenefitsSection = () => {
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-lg font-semibold  mb-2">{t.title}</h3>
+                      <h3 className="text-lg font-semibold">{t.title}</h3>
 
                       {/* Content */}
-                      <p className=" text-sm leading-relaxed mb-6">
+                      <p className=" text-sm leading-relaxed">
                         {t.content}
                       </p>
 
                       {/* Footer */}
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 mt-auto">
                         {/* Avatar */}
                         <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-semibold ">
                           {t.initials}
@@ -167,6 +168,7 @@ const BenefitsSection = () => {
               </Slider>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>

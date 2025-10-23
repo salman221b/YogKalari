@@ -36,7 +36,7 @@ const ProductDetails = () => {
     return <div className="p-10 text-center">Product not found.</div>;
 
   return (
-    <section className="py-10 pt-30">
+    <section className="py-10 pt-30 bg-[#FFFFFF]">
       <div className="text-sm text-gray-500 mb-6 px-5 md:px-20 lg:pl-20 2xl:pl-40">
         <Link to="/">Home </Link> &gt;
         <Link to="/terrariums"> Terrariums </Link> &gt;{" "}

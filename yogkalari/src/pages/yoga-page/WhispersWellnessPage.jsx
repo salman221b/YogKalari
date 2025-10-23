@@ -93,17 +93,17 @@ const WhispersWellnessPage = () => {
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-lg font-semiboldmb-2">{t.title}</h3>
+                        <h3 className="text-lg font-semibold">{t.title}</h3>
 
                         {/* Content */}
-                        <p className="text-sm leading-relaxed mb-6">
+                        <p className="text-sm leading-relaxed">
                           {t.content}
                         </p>
 
                         {/* Footer */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 mt-auto">
                           {/* Avatar */}
-                          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-semibold text-gray-700">
+                          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-semibold">
                             {t.initials}
                           </div>
 

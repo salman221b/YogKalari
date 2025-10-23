@@ -92,19 +92,15 @@ const WhispersWellnessPage = () => {
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-lg font-semibold mb-2">
-                          {t.title}
-                        </h3>
+                        <h3 className="text-lg font-semibold">{t.title}</h3>
 
                         {/* Content */}
-                        <p className="text-sm leading-relaxed mb-6">
-                          {t.content}
-                        </p>
+                        <p className="text-sm leading-relaxed ">{t.content}</p>
 
                         {/* Footer */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 mt-auto">
                           {/* Avatar */}
-                          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-semibold text-gray-700">
+                          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-semibold">
                             {t.initials}
                           </div>
 
@@ -133,7 +129,7 @@ const WhispersWellnessPage = () => {
 
       {/* Bottom CTA Section */}
       <div className="bg-[#084C2E] py-10 px-6">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center pb-5">
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-6">
             Ready to Begin Your Wellness Journey?
           </h2>

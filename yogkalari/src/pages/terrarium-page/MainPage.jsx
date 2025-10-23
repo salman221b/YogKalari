@@ -13,7 +13,7 @@ const HeroSection = () => {
   ];
 
   const settings = {
-    dots: true,
+    // dots: true,
     infinite: true,
     speed: 700,
     slidesToShow: 1,
@@ -65,17 +65,17 @@ const HeroSection = () => {
       </div>
 
       {/* Text Content */}
-      <div className="max-w-5xl mx-2 sm:mx-5  md:mx-5 mt-12 px-6">
-        <h1 className=" font-primary text-3xl sm:text-5xl md:text-6xl font-semibold text-[#084C2E] tracking-wide">
+      <div className="max-w-5xl mx-2 sm:mx-5  md:mx-5 mt-12  px-5 sm:px-7 lg:px-10">
+        <h1 className=" font-primary text-3xl sm:text-5xl md:text-7xl font-semibold text-[#084C2E] tracking-wide">
           SAMRIDDHI COLLECTIONS
         </h1>
-        <p className="mt-4 text-gray-700 leading-relaxed text-base sm:text-sm md:text-lg lg:text-lg  text-justify">
+        <p className="mt-4 text-gray-700 leading-relaxed text-base sm:text-sm md:text-lg lg:text-lg  text-justify w-[100%] sm:w-[95%] md:w-[93%] lg:w-[90%]">
           Each terrarium is handcrafted by Sachin Gurukkal, carrying the focused{" "}
           prāṇa of an ancient warrior tradition. Every piece is a miniature
           sacred grove, built to hold space, regulate energy, and invite
           presence.
         </p>
-        <p className="mt-4 text-gray-700 leading-relaxed text-base sm:text-sm md:text-lg lg:text-lg  text-justify">
+        <p className="mt-4 text-gray-700 leading-relaxed text-base sm:text-sm md:text-lg lg:text-lg  text-justify w-[100%] sm:w-[95%] md:w-[93%] lg:w-[90%]">
           They are not decorative items — they are ritual companions. Designed
           around the pañca mahābhūtas, they work silently to harmonize your
           space through breath, stillness, and rooted earth energy.

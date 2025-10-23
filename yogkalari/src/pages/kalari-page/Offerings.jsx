@@ -29,8 +29,10 @@ const Offerings = () => {
   return (
     <section className="bg-[#EDEAE0] py-16 px-6 sm:px-10 md:px-16 lg:px-24 ">
       {/* Title */}
-      <h2 className="text-2xl md:text-3xl  text-[#AA6246]">Offerings</h2>
-      <p className="text-gray-600 mt-2 mx-auto text-sm sm:text-base mb-7">
+      <h2 className="text-2xl md:text-3xl  text-[#AA6246] text-center font-semibold mb-4">
+        Offerings
+      </h2>
+      <p className="text-gray-600 mt-2 mx-auto text-sm sm:text-base mb-7 text-center">
         Based in Dubai. (Classes offered in select locations. Contact us to
         explore starting a group near you.)
       </p>
@@ -40,14 +42,14 @@ const Offerings = () => {
           <div
             key={index}
             to={card.link}
-            className="group relative bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500 hover:shadow-2xl"
+            className="group relative bg-[#F4F2ED] rounded-2xl shadow-md overflow-hidden transition-all duration-500 hover:shadow-2xl"
           >
             {/* Image */}
             <div className="relative overflow-hidden group-hover:h-full">
               <img
                 src={card.image}
                 alt={card.title}
-                className="w-full h-full object-cover rounded-t-2xl transition-all duration-700 ease-in-out md:grayscale group-hover:grayscale-0 group-hover:h-full"
+                className="w-full h-full object-cover p-3 hover:p-0 rounded-2xl transition-all duration-700 ease-in-out md:grayscale group-hover:grayscale-0 group-hover:h-full"
               />
             </div>
 

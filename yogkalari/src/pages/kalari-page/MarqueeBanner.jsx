@@ -3,7 +3,7 @@ import "./MarqueeBanner.css"; // Import custom CSS
 
 const MarqueeBanner = () => {
   return (
-    <div className="w-full bg-[#94563D] overflow-hidden">
+    <div className="w-full bg-[#AA6246] overflow-hidden">
       <div className="marquee py-2">
         <span className="text-white text-sm md:text-base">
           - Use code <b>BREATHE10</b> for 10% off your first session or
