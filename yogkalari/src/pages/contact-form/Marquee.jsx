@@ -2,7 +2,7 @@ import React from "react";
 
 const Marquee = () => {
   return (
-    <div className="bg-[#E3DECF] text-black py-1 overflow-hidden relative">
+    <div className="bg-[#EDEAE0] text-black py-1 overflow-hidden relative">
       <div className="flex animate-marquee whitespace-nowrap">
         {/* Repeat the message multiple times for seamless loop */}
         {Array.from({ length: 8 }, (_, i) => (

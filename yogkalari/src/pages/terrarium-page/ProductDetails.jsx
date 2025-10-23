@@ -43,7 +43,7 @@ const ProductDetails = () => {
         <span className="text-gray-800">{product.name}</span>
       </div>
 
-      <div className="max-w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-6  px-5 md:px-7 lg:pl-15 2xl:pl-15">
+      <div className="max-w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 px-5 sm:px-7 lg:px-10">
         {/* Left: Product Images */}
         <div>
           <div className="relative">
