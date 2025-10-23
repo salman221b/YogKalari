@@ -38,8 +38,10 @@ const Navbar = () => {
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={`transition ${
-                    location.pathname === link.path
-                      ? "text-[#084C2E] underline underline-offset-7 font-medium"
+                    location.pathname === link.path ||
+                    (link.path === "/terrariums" &&
+                      location.pathname.startsWith("/products"))
+                      ? "text-[#084C2E] underline underline-offset-8 font-medium"
                       : "text-[#1C1C1B] hover:text-[#084C2E] hover:bg-[#EDEAE0] font-medium"
                   }`}
                 >

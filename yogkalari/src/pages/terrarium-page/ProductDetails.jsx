@@ -36,21 +36,50 @@ const ProductDetails = () => {
     return <div className="p-10 text-center">Product not found.</div>;
 
   return (
-    <section className="py-10 pt-30 bg-[#FFFFFF]">
-      <div className="text-sm text-gray-500 mb-6 px-5 md:px-20 lg:pl-20 2xl:pl-40">
+    <section className=" pt-30 bg-[#FFFFFF]">
+      <div className="text-sm text-gray-500 mb-6 px-5 md:px-7 lg:pl-15 2xl:pl-15">
         <Link to="/">Home </Link> &gt;
         <Link to="/terrariums"> Terrariums </Link> &gt;{" "}
         <span className="text-gray-800">{product.name}</span>
       </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 px-6">
+      <div className="max-w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-6  px-5 md:px-7 lg:pl-15 2xl:pl-15">
         {/* Left: Product Images */}
         <div>
-          <img
-            src={selectedImage}
-            alt={product.name}
-            className="rounded-xl shadow-lg w-full h-[750px] object-cover"
-          />
+          <div className="relative">
+            {/* Main Image */}
+            <img
+              src={selectedImage}
+              alt={product.name}
+              className="rounded-xl shadow-lg w-full h-[500px] object-cover"
+            />
+
+            {/* Prev Button */}
+            <button
+              onClick={() => {
+                const currentIndex = product.images.indexOf(selectedImage);
+                const prevIndex =
+                  (currentIndex - 1 + product.images.length) %
+                  product.images.length;
+                setSelectedImage(product.images[prevIndex]);
+              }}
+              className="absolute top-1/2 left-5 transform -translate-y-1/2 text-[#C8C8C8] text-5xl px-3 py-1 rounded-full transition"
+            >
+              ‹
+            </button>
+
+            {/* Next Button */}
+            <button
+              onClick={() => {
+                const currentIndex = product.images.indexOf(selectedImage);
+                const nextIndex = (currentIndex + 1) % product.images.length;
+                setSelectedImage(product.images[nextIndex]);
+              }}
+              className="absolute top-1/2 right-5 transform -translate-y-1/2 text-[#C8C8C8] text-5xl px-3 py-1 rounded-full transition"
+            >
+              ›
+            </button>
+          </div>
 
           {/* Thumbnails */}
           <div className="flex gap-3 mt-4 flex-wrap">
@@ -70,7 +99,7 @@ const ProductDetails = () => {
 
         {/* Right: Product Info */}
         <div>
-          <h1 className="text-2xl font-bold text-green-800">{product.name}</h1>
+          <h1 className="text-2xl font-bold text-[#084C2E]">{product.name}</h1>
 
           {/* Description */}
           <p className="mt-2 text-gray-700">{product.description}</p>
