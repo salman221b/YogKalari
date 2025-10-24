@@ -51,7 +51,7 @@ const ProductDetails = () => {
             <img
               src={selectedImage}
               alt={product.name}
-              className="rounded-xl shadow-lg w-full h-[500px] object-cover"
+              className="rounded-xl shadow-lg w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover"
             />
 
             {/* Prev Button */}
