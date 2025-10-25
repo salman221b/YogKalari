@@ -9,14 +9,14 @@ dotenv.config();
 
 const router = express.Router();
 
-// ✅ Cloudinary configuration
+/* ---------------------- CLOUDINARY CONFIG ---------------------- */
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-// ✅ Multer + Cloudinary Storage setup
+/* ---------------------- MULTER STORAGE SETUP ---------------------- */
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
@@ -24,7 +24,6 @@ const storage = new CloudinaryStorage({
     allowed_formats: ["jpg", "png", "jpeg"],
   },
 });
-
 const parser = multer({ storage });
 
 /* ---------------------- ROUTES ---------------------- */
@@ -36,22 +35,16 @@ router.get("/", async (req, res) => {
     res.status(200).json({ success: true, products });
   } catch (err) {
     console.error(err);
-    res
-      .status(500)
-      .json({ success: false, message: "Failed to fetch products" });
+    res.status(500).json({ success: false, message: "Failed to fetch products" });
   }
 });
+
 // ✅ Get single product by ID
 router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-
   try {
-    const product = await Product.findById(id);
-    if (!product) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Product not found" });
-    }
+    const product = await Product.findById(req.params.id);
+    if (!product)
+      return res.status(404).json({ success: false, message: "Product not found" });
 
     res.json({ success: true, product });
   } catch (err) {
@@ -65,33 +58,47 @@ router.post("/", parser.array("images", 5), async (req, res) => {
   try {
     const {
       name,
-      price,
-      rating,
-      reviews,
       description,
+      price,
+      placement,
+      gifting,
+      stock,
       category,
       isLimited,
       isRecommended,
+      titleAndValues, // Expect JSON string
     } = req.body;
 
     const imageUrls = req.files.map((file) => file.path);
 
+    // Parse titleAndValues if it's a JSON string from frontend
+    let parsedTitleValues = [];
+    try {
+      if (titleAndValues) {
+        parsedTitleValues = JSON.parse(titleAndValues);
+      }
+    } catch (err) {
+      console.warn("Invalid titleAndValues JSON");
+    }
+
     const newProduct = new Product({
       name,
+      description,
       price,
       images: imageUrls,
-      rating,
-      reviews,
-      description,
+      placement,
+      gifting,
+      stock: stock ? Number(stock) : 0,
       category,
-      isLimited: isLimited === "true",
-      isRecommended: isRecommended === "true",
+      isLimited: isLimited === "true" || isLimited === true,
+      isRecommended: isRecommended === "true" || isRecommended === true,
+      titleAndValues: parsedTitleValues,
     });
 
     await newProduct.save();
     res.status(201).json({ success: true, product: newProduct });
   } catch (err) {
-    console.error(err);
+    console.error("Add Product Error:", err);
     res.status(500).json({ success: false, message: "Failed to add product" });
   }
 });
@@ -101,31 +108,55 @@ router.put("/:id", parser.array("images", 5), async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product)
-      return res
-        .status(404)
-        .json({ success: false, message: "Product not found" });
+      return res.status(404).json({ success: false, message: "Product not found" });
 
-    // If new images uploaded, replace old ones
+    // Handle images
     let imageUrls = product.images;
     if (req.files && req.files.length > 0) {
       imageUrls = req.files.map((file) => file.path);
     }
 
+    const {
+      name,
+      description,
+      price,
+      placement,
+      gifting,
+      stock,
+      category,
+      isLimited,
+      isRecommended,
+      titleAndValues,
+    } = req.body;
+
+    let parsedTitleValues = [];
+    try {
+      if (titleAndValues) parsedTitleValues = JSON.parse(titleAndValues);
+    } catch (err) {
+      console.warn("Invalid titleAndValues JSON in update");
+    }
+
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
       {
-        ...req.body,
+        name,
+        description,
+        price,
         images: imageUrls,
-        isLimited: req.body.isLimited === "true" || req.body.isLimited === true,
-        isRecommended:
-          req.body.isRecommended === "true" || req.body.isRecommended === true,
+        placement,
+        gifting,
+        stock: stock ? Number(stock) : 0,
+        category,
+        isLimited: isLimited === "true" || isLimited === true,
+        isRecommended: isRecommended === "true" || isRecommended === true,
+        titleAndValues: parsedTitleValues,
       },
       { new: true }
     );
 
     res.status(200).json({ success: true, product: updatedProduct });
   } catch (err) {
-    console.error(err);
+    console.error("Update Error:", err);
     res.status(500).json({ success: false, message: "Update failed" });
   }
 });
@@ -135,18 +166,14 @@ router.delete("/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product)
-      return res
-        .status(404)
-        .json({ success: false, message: "Product not found" });
+      return res.status(404).json({ success: false, message: "Product not found" });
 
-    // Optionally delete images from Cloudinary
+    // Delete images from Cloudinary
     if (product.images && product.images.length > 0) {
       for (let url of product.images) {
         const publicId = url.split("/").pop().split(".")[0];
         try {
-          await cloudinary.uploader.destroy(
-            `YOGKALARISAMRIDDHI/products/${publicId}`
-          );
+          await cloudinary.uploader.destroy(`YOGKALARISAMRIDDHI/products/${publicId}`);
         } catch (err) {
           console.warn("Failed to delete Cloudinary image:", publicId);
         }
@@ -154,11 +181,9 @@ router.delete("/:id", async (req, res) => {
     }
 
     await Product.findByIdAndDelete(req.params.id);
-    res
-      .status(200)
-      .json({ success: true, message: "Product deleted successfully" });
+    res.status(200).json({ success: true, message: "Product deleted successfully" });
   } catch (err) {
-    console.error(err);
+    console.error("Delete Error:", err);
     res.status(500).json({ success: false, message: "Delete failed" });
   }
 });

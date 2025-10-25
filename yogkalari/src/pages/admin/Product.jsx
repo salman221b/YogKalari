@@ -7,17 +7,20 @@ const AdminAddProduct = ({ onProductAdded }) => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    price: "",
-    rating: "",
-    reviews: "",
     description: "",
+    price: "",
+    placement: "",
+    gifting: "",
+    stock: "",
     category: "",
     isLimited: false,
     isRecommended: false,
+    titleAndValues: [{ title: "", value: "" }],
   });
   const [images, setImages] = useState([]);
   const [submitting, setSubmitting] = useState(false);
 
+  /* ---------------------- Handlers ---------------------- */
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -26,15 +29,33 @@ const AdminAddProduct = ({ onProductAdded }) => {
     });
   };
 
+  const handleTitleValueChange = (index, field, value) => {
+    const newPairs = [...formData.titleAndValues];
+    newPairs[index][field] = value;
+    setFormData({ ...formData, titleAndValues: newPairs });
+  };
+
+  const addTitleValueField = () => {
+    setFormData({
+      ...formData,
+      titleAndValues: [...formData.titleAndValues, { title: "", value: "" }],
+    });
+  };
+
+  const removeTitleValueField = (index) => {
+    const newPairs = formData.titleAndValues.filter((_, i) => i !== index);
+    setFormData({ ...formData, titleAndValues: newPairs });
+  };
+
   const handleImageChange = async (e) => {
     const files = [...e.target.files];
     try {
       const compressedFiles = await Promise.all(
         files.map((file) =>
           imageCompression(file, {
-            maxSizeMB: 1, // Max size in MB
-            maxWidthOrHeight: 1024, // Max width or height
-            useWebWorker: true, // Use web worker for faster processing
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1024,
+            useWebWorker: true,
           })
         )
       );
@@ -48,8 +69,8 @@ const AdminAddProduct = ({ onProductAdded }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { name, price, rating, reviews, description, category } = formData;
-    if (!name || !price || !rating || !reviews || !description || !category) {
+    const { name, price, description, category } = formData;
+    if (!name || !price || !description || !category) {
       Swal.fire({
         title: "Missing Fields!",
         text: "Please fill all required fields before submitting.",
@@ -58,6 +79,7 @@ const AdminAddProduct = ({ onProductAdded }) => {
       });
       return;
     }
+
     if (images.length === 0) {
       Swal.fire({
         title: "No Images!",
@@ -68,10 +90,30 @@ const AdminAddProduct = ({ onProductAdded }) => {
       return;
     }
 
+    if (images.length > 5) {
+      Swal.fire({
+        title: "Too Many Images!",
+        text: "You can upload a maximum of 5 images per product.",
+        icon: "warning",
+        confirmButtonColor: "#f6ad55",
+      });
+      return;
+    }
+
     try {
       setSubmitting(true);
       const data = new FormData();
-      Object.keys(formData).forEach((key) => data.append(key, formData[key]));
+
+      // Append basic form data
+      Object.keys(formData).forEach((key) => {
+        if (key === "titleAndValues") {
+          data.append("titleAndValues", JSON.stringify(formData[key]));
+        } else {
+          data.append(key, formData[key]);
+        }
+      });
+
+      // Append image files
       images.forEach((img) => data.append("images", img));
 
       const res = await axios.post(
@@ -89,19 +131,21 @@ const AdminAddProduct = ({ onProductAdded }) => {
           showConfirmButton: false,
         });
 
+        // Reset form
         setFormData({
           name: "",
-          price: "",
-          rating: "",
-          reviews: "",
           description: "",
+          price: "",
+          placement: "",
+          gifting: "",
+          stock: "",
           category: "",
           isLimited: false,
           isRecommended: false,
+          titleAndValues: [{ title: "", value: "" }],
         });
         setImages([]);
         setShowForm(false);
-
         if (onProductAdded) onProductAdded(res.data.product);
       }
     } catch (err) {
@@ -117,6 +161,7 @@ const AdminAddProduct = ({ onProductAdded }) => {
     }
   };
 
+  /* ---------------------- UI ---------------------- */
   return (
     <div className="max-w-md mx-auto mt-10 bg-white p-6 rounded shadow">
       <div className="flex justify-between items-center mb-4">
@@ -136,33 +181,8 @@ const AdminAddProduct = ({ onProductAdded }) => {
           <input
             type="text"
             name="name"
-            placeholder="Name *"
+            placeholder="Product Name *"
             value={formData.name}
-            onChange={handleChange}
-            className="w-full p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="price"
-            placeholder="Price *"
-            value={formData.price}
-            onChange={handleChange}
-            className="w-full p-2 border rounded"
-          />
-          <input
-            type="number"
-            step="0.1"
-            name="rating"
-            placeholder="Rating *"
-            value={formData.rating}
-            onChange={handleChange}
-            className="w-full p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="reviews"
-            placeholder="Reviews *"
-            value={formData.reviews}
             onChange={handleChange}
             className="w-full p-2 border rounded"
           />
@@ -175,6 +195,38 @@ const AdminAddProduct = ({ onProductAdded }) => {
           />
           <input
             type="text"
+            name="price"
+            placeholder="Price *"
+            value={formData.price}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+          />
+          <input
+            type="text"
+            name="placement"
+            placeholder="Placement"
+            value={formData.placement}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+          />
+          <input
+            type="text"
+            name="gifting"
+            placeholder="Gifting"
+            value={formData.gifting}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+          />
+          <input
+            type="number"
+            name="stock"
+            placeholder="Stock Quantity"
+            value={formData.stock}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+          />
+          <input
+            type="text"
             name="category"
             placeholder="Category *"
             value={formData.category}
@@ -182,28 +234,71 @@ const AdminAddProduct = ({ onProductAdded }) => {
             className="w-full p-2 border rounded"
           />
 
-          <label>
-            <input
-              type="checkbox"
-              name="isLimited"
-              checked={formData.isLimited}
-              onChange={handleChange}
-            />{" "}
-            Limited
-          </label>
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              name="isRecommended"
-              checked={formData.isRecommended}
-              onChange={handleChange}
-            />{" "}
-            Recommended
-          </label>
-          <br />
+          {/* Dynamic title/value fields */}
+          <div className="mt-4">
+            <label className="font-semibold">Extra Details:</label>
+            {formData.titleAndValues.map((pair, index) => (
+              <div key={index} className="flex gap-2 mt-2">
+                <input
+                  type="text"
+                  placeholder="Title"
+                  value={pair.title}
+                  onChange={(e) =>
+                    handleTitleValueChange(index, "title", e.target.value)
+                  }
+                  className="flex-1 p-2 border rounded"
+                />
+                <input
+                  type="text"
+                  placeholder="Value"
+                  value={pair.value}
+                  onChange={(e) =>
+                    handleTitleValueChange(index, "value", e.target.value)
+                  }
+                  className="flex-1 p-2 border rounded"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeTitleValueField(index)}
+                  className="bg-red-500 text-white px-3 rounded"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addTitleValueField}
+              className="text-blue-600 text-sm mt-2"
+            >
+              + Add more
+            </button>
+          </div>
 
-          <label>Upload Images *</label>
+          {/* Checkboxes */}
+          <div className="flex gap-4 mt-2">
+            <label>
+              <input
+                type="checkbox"
+                name="isLimited"
+                checked={formData.isLimited}
+                onChange={handleChange}
+              />{" "}
+              Limited
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="isRecommended"
+                checked={formData.isRecommended}
+                onChange={handleChange}
+              />{" "}
+              Recommended
+            </label>
+          </div>
+
+          {/* Image upload */}
+          <label className="mt-2">Upload Images (Max 5 images) *</label>
           <input
             type="file"
             multiple
@@ -211,10 +306,11 @@ const AdminAddProduct = ({ onProductAdded }) => {
             className="w-full p-2 border rounded"
           />
 
+          {/* Submit button */}
           <button
             type="submit"
             disabled={submitting}
-            className={`bg-blue-500 text-white p-2 rounded w-full cursor-pointer ${
+            className={`bg-blue-500 text-white p-2 rounded w-full ${
               submitting ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >

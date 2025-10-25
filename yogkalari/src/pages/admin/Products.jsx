@@ -6,7 +6,7 @@ import AdminEditProduct from "./AdminEditProduct";
 const AdminShowProducts = () => {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
-  const [loading, setLoading] = useState(false); // optional loading state
+  const [loading, setLoading] = useState(false);
 
   // ✅ Fetch all products
   const fetchProducts = async () => {
@@ -61,9 +61,7 @@ const AdminShowProducts = () => {
   return (
     <div className="mt-30">
       <div className="flex justify-between items-center mx-10 mb-4">
-        <h2 className="text-xl text-[#084C2E] font-bold">
-          All Products
-        </h2>
+        <h2 className="text-xl text-[#084C2E] font-bold">All Products</h2>
         <button
           onClick={fetchProducts}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
@@ -82,8 +80,11 @@ const AdminShowProducts = () => {
               <tr className="bg-gray-100">
                 <th className="border p-2">Image</th>
                 <th className="border p-2">Name</th>
-                <th className="border p-2">Price</th>
                 <th className="border p-2">Category</th>
+                <th className="border p-2">Placement</th>
+                <th className="border p-2">Gifting</th>
+                <th className="border p-2">Stock</th>
+                <th className="border p-2">Price</th>
                 <th className="border p-2">Limited</th>
                 <th className="border p-2">Recommended</th>
                 <th className="border p-2">Actions</th>
@@ -94,19 +95,24 @@ const AdminShowProducts = () => {
                 <tr key={prod._id}>
                   <td className="border p-2">
                     <img
-                      src={prod.images[0]}
+                      src={prod.images?.[0]}
                       alt={prod.name}
                       className="w-12 h-12 object-cover rounded"
                     />
                   </td>
-                  <td className="border p-2">{prod.name}</td>
+                  <td className="border p-2 font-medium">{prod.name}</td>
+                  <td className="border p-2">{prod.category || "-"}</td>
+                  <td className="border p-2">{prod.placement || "-"}</td>
+                  <td className="border p-2">{prod.gifting || "-"}</td>
+                  <td className="border p-2">{prod.stock ?? "N/A"}</td>
                   <td className="border p-2">{prod.price}</td>
-                  <td className="border p-2">{prod.category}</td>
-                  <td className="border p-2">{prod.isLimited ? "✅" : "❌"}</td>
-                  <td className="border p-2">
+                  <td className="border p-2 text-center">
+                    {prod.isLimited ? "✅" : "❌"}
+                  </td>
+                  <td className="border p-2 text-center">
                     {prod.isRecommended ? "✅" : "❌"}
                   </td>
-                  <td className="border p-2 space-x-2">
+                  <td className="border p-2 space-x-2 text-center">
                     <button
                       className="bg-yellow-400 text-white px-2 py-1 rounded"
                       onClick={() => setEditingProduct(prod)}
@@ -127,7 +133,7 @@ const AdminShowProducts = () => {
         </div>
       )}
 
-      {/* ✅ Edit modal */}
+      {/* ✅ Edit Modal */}
       {editingProduct && (
         <AdminEditProduct
           product={editingProduct}
