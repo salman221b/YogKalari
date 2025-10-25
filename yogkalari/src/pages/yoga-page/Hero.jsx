@@ -1,4 +1,5 @@
 import React from "react";
+import img from "../../assets/logoHeroYoga.png";
 const Hero = () => {
   return (
     <section
@@ -18,8 +19,9 @@ const Hero = () => {
       </p>
       {/* Large Faded Background Text */}
       <img
-        src="logo.png"
-        className="absolute xs:h-50 xs:w-50 sm:h-80 sm:w-80 md:h-100 md:w-100 opacity-20 lg:h-150 lg:w-150 xl:w-200 xl:h-200 left-[-300px] sm:left-[-300px] lg:left-[-400px] grayscale"
+        src={img}
+        // className="absolute xs:h-50 xs:w-50 sm:h-80 sm:w-80 md:h-100 md:w-100 opacity-20 lg:h-150 lg:w-150 xl:w-200 xl:h-200 left-[-300px] sm:left-[-300px] lg:left-[-400px]"
+        className="absolute left-0"
       />
 
       {/* Image */}

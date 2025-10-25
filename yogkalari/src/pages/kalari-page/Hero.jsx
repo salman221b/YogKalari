@@ -1,4 +1,4 @@
-import React from "react";
+import img from "../../assets/logoHeroKalari.png";
 
 const Hero = () => {
   return (
@@ -20,12 +20,13 @@ const Hero = () => {
 
       {/* Logo */}
       <img
-        src="logo.png"
+        src={img}
         alt="Background Logo"
-        className="absolute opacity-15 z-0 
-                   w-[400px] sm:w-[600px] md:w-[700px] lg:w-[800px]
-                   h-auto right-[-200px] sm:right-[-200px] md:right-[-250px] lg:right-[-300px] 
-                   top-[100px] md:top-[100px] object-contain pointer-events-none grayscale"
+        // className="absolute opacity-15 z-0
+        //            w-[400px] sm:w-[600px] md:w-[700px] lg:w-[800px]
+        //            h-auto right-[-200px] sm:right-[-200px] md:right-[-250px] lg:right-[-300px]
+        //            top-[100px] md:top-[100px] object-contain pointer-events-none grayscale"
+        className="absolute right-0 top-0"
       />
     </section>
   );
