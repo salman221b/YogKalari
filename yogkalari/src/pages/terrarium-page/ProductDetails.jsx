@@ -102,16 +102,25 @@ const ProductDetails = () => {
           <h1 className="text-2xl font-bold text-[#084C2E]">{product.name}</h1>
 
           {/* Description */}
-          <p className="mt-2 text-gray-700">{product.description}</p>
-          <p className="mt-1 text-gray-700 font-medium">
-            Category: {product.category}
+          <p className="mt-2 text-[#555555] pb-5">{product.description}</p>
+          <p className="mt-1 text-[#555555] font-medium pb-3">
+            Placement: {product.placement}
+          </p>
+          <p className="mt-1 text-[#555555] font-medium pb-3">
+            Gifting: {product.gifting}
+          </p>
+          <p className="mt-1 text-[#555555] font-medium pb-2">
+            Uniqueness: {product.stock} pieces currently in stock.
           </p>
 
           {/* Care Guide Link */}
-          <p className="italic text-gray-500 text-sm mt-3">
-            Includes a digital care guide. For full instructions click{" "}
+          <p className="text-[#555555] text-sm mt-3">
+            <span className="italic">
+              Includes a digital care guide. For full instructions click{"  "}
+              &nbsp;
+            </span>
             <span
-              className="underline cursor-pointer text-blue-600"
+              className="underline cursor-pointer text-blue-600 "
               onClick={() => setIsModalOpen(true)}
             >
               Terrariums Care Instructions
@@ -122,53 +131,44 @@ const ProductDetails = () => {
           <div className="mt-6">
             <img src="/AED.png" alt="AED" className="inline w-6 h-6 mb-2" />
             <p className="inline text-2xl font-semibold">{product.price}</p>
-            {product.stock ? (
+            {product.stock === 0 ? null : product.stock < 10 ? (
               <p className="text-red-600 text-sm mt-1">
-                Hurry Up! Only {product.stock} left
+                Hurry up! Only {product.stock} left
               </p>
             ) : (
-              <p className="text-red-600 text-sm mt-1">
-                {" "}
-                Hurry Up! Only 3 Pieces left
+              <p className="text-green-600 text-sm mt-1">
+                In stock: {product.stock}
               </p>
             )}
           </div>
 
           {/* Buy Button */}
-          <div className="mt-4">
+          <div className="mt-6">
             <a
               href={`https://wa.me/971563440979?text=Hello, I am enquiring about the product *${product.name}* priced at *${product.price}*.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#084C2E] text-white px-8 py-3 rounded-full shadow hover:bg-[#0A7646] inline-block text-center"
+              className={`bg-[#084C2E] text-white px-8 py-3 rounded-full shadow hover:bg-[#0A7646] inline-block text-center ${
+                product.stock === 0 ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={product.stock === 0}
             >
               Buy Now
             </a>
+            {product.stock === 0 && (
+              <p className="text-red-600 text-sm mt-4">Out of stock</p>
+            )}
           </div>
 
           {/* Why Sections */}
-          <div className="mt-8 space-y-6 text-gray-700">
-            <div>
-              <h3 className="font-bold">Special Offer</h3>
-              <p>
-                WhatsApp us with the code BREATHE10 to get 10% off your first
-                wellness session or terrarium experience.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold">Why Brass Ganesha?</h3>
-              <p>
-                Heritage material with auspicious energy. Carries durability and
-                sacred longevity.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold">Why Ārāma?</h3>
-              <p>
-                Layered greens and moss evoke a forest temple, turning this
-                terrarium into a devotional centerpiece.
-              </p>
-            </div>
+          <div className="mt-8 space-y-6">
+            {product.titleAndValues.map((item, index) => (
+              <div key={index}>
+                <h3 className="font-bold text-[#1C1C1B]">{item.title}</h3>
+                <p className="text-[#555555]">{item.value}</p>
+              </div>
+            ))}
+            <div></div>
             <div>
               <h3 className="font-bold">
                 If you have any questions please get in touch with us!

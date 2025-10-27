@@ -16,8 +16,8 @@ const AdminEditProduct = ({ product, onClose, onUpdated }) => {
   });
 
   const [titleValues, setTitleValues] = useState(
-    product.titleValues && product.titleValues.length > 0
-      ? product.titleValues
+    product.titleAndValues && product.titleAndValues.length > 0
+      ? product.titleAndValues
       : [{ title: "", value: "" }]
   );
 
@@ -59,17 +59,14 @@ const AdminEditProduct = ({ product, onClose, onUpdated }) => {
     e.preventDefault();
     try {
       const data = new FormData();
-
       Object.keys(formData).forEach((key) => data.append(key, formData[key]));
-      data.append("titleValues", JSON.stringify(titleValues));
+      data.append("titleAndValues", JSON.stringify(titleValues)); // <-- key fixed
       newImages.forEach((img) => data.append("images", img));
 
       const res = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/products/${product._id}`,
         data,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
 
       if (res.data.success) {

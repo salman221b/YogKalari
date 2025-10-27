@@ -163,7 +163,7 @@ const AdminAddProduct = ({ onProductAdded }) => {
 
   /* ---------------------- UI ---------------------- */
   return (
-    <div className="max-w-md mx-auto mt-10 bg-white p-6 rounded shadow">
+    <div className="max-w-md md:max-w-xl mx-auto mt-10 bg-white p-6 rounded shadow">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Admin Panel</h2>
         <button
@@ -260,7 +260,7 @@ const AdminAddProduct = ({ onProductAdded }) => {
                 <button
                   type="button"
                   onClick={() => removeTitleValueField(index)}
-                  className="bg-red-500 text-white px-3 rounded"
+                  className=" bg-red-500 text-white px-3 rounded"
                 >
                   ✕
                 </button>
