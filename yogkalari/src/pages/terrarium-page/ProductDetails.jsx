@@ -103,12 +103,16 @@ const ProductDetails = () => {
 
           {/* Description */}
           <p className="mt-2 text-[#555555] pb-5">{product.description}</p>
-          <p className="mt-1 text-[#555555] font-medium pb-3">
-            Placement: {product.placement}
-          </p>
-          <p className="mt-1 text-[#555555] font-medium pb-3">
-            Gifting: {product.gifting}
-          </p>
+          {product.placement && (
+            <p className="mt-1 text-[#555555] font-medium pb-3">
+              Placement: {product.placement}
+            </p>
+          )}
+          {product.gifting && (
+            <p className="mt-1 text-[#555555] font-medium pb-3">
+              Gifting: {product.gifting}
+            </p>
+          )}
           <p className="mt-1 text-[#555555] font-medium pb-2">
             Uniqueness: {product.stock} pieces currently in stock.
           </p>
